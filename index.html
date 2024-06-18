@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker Game</title>
+</head>
+<body>
+    <section>
+        <div class="main">
+            <div class="left">
+                <div class="gem-img-container">
+                    <img 
+                     src="images/Gem.png"
+                     alt=""
+                     class="gem-image"
+                     draggable="false"
+                     onclick="incrementGem()">
+                </div>
+                <p>Gems <br /><span class="gem-cost pink-text">0</span></p>
+                <span>Gems per Click: <span id="gpc-text" class="pink-text">1</span></span><br>
+                <span>Gems per Second: <span id="gps-text" class="pink-text">0</span></span><br>
+            </div>
+            <div class="mid-section">
+                <div class="upgrade" onclick="buyUpgrade('clicker')">
+                    <div class="left-section">
+                        <img src="images/upgrade1.png" alt="" class="upgrade-img">
+                    </div>
+                    <div class="mid-section">
+                        <h4>Cursor</h4>
+                        <div class="cost-info">
+                            <p class="cost-text"><span class="clicker-cost">10</span></p>
+                            <img src="images/Gem.png" alt="" class="gem-img">
+                        </div>
+                    </div>
+                    <div class="right-section">Level <span class="clicker-level">0</span></div>
+                    <div class="next-level-info">
+                        <p>+<span class="clicker-increase">1</span> Gems <br /> Per Click</p>
+                    </div>
+                </div>
+
+                <div class="upgrade" onclick="buyUpgrade('pickaxe')">
+                    <div class="left-section">
+                        <img src="images/upgrade2.png" alt="" class="upgrade-img">
+                    </div>
+                    <div class="mid-section">
+                        <h4>Pickaxe</h4>
+                        <div class="cost-info">
+                            <p class="cost-text"><span class="pickaxe-cost">500</span></p>
+                            <img src="images/Gem.png" alt="" class="gem-img">
+                        </div>
+                    </div>
+                    <div class="right-section">Level <span class="pickaxe-level">0</span></div>
+                    <div class="next-level-info">
+                        <p>+<span class="pickaxe-increase">4</span> Gems <br /> Per Second</p>
+                    </div>
+                </div>
+
+                <div class="upgrade" onclick="buyUpgrade('factory')">
+                    <div class="left-section">
+                        <img src="images/upgrade3.png" alt="" class="upgrade-img">
+                    </div>
+                    <div class="mid-section">
+                        <h4>Factory</h4>
+                        <div class="cost-info">
+                            <p class="cost-text"><span class="factory-cost">1,500</span></p>
+                            <img src="images/Gem.png" alt="" class="gem-img">
+                        </div>
+                    </div>
+                    <div class="right-section">Level <span class="factory-level">0</span></div>
+                    <div class="next-level-info">
+                        <p>+<span class="factory-increase">10</span> Gems <br /> Per Second</p>
+                    </div>
+                </div>
+
+                <div class="upgrade" onclick="buyUpgrade('gemmine')">
+                    <div class="upgrade4">
+                        <img src="images/upgrade4.png" alt="" class="upgrade-img">
+                    </div>
+                    <div class="mid-section">
+                        <h4>Gem Mine</h4>
+                        <div class="cost-info">
+                            <p class="cost-text"><span class="gemmine-cost">6,500</span></p>
+                            <img src="images/Gem.png" alt="" class="gem-img">
+                        </div>
+                    </div>
+                    <div class="right-section">Level <span class="gemmine-level">0</span></div>
+                    <div class="next-level-info">
+                        <p>+<span class="gemmine-increase">20</span> Gems <br /> Per Second</p>
+                    </div>
+                </div>
+
+                <div class="upgrade" onclick="buyUpgrade('minecart')">
+                    <div class="left-section">
+                        <img src="images/upgrade5.png" alt="" class="upgrade-img">
+                    </div>
+                    <div class="mid-section">
+                        <h4>Minecart</h4>
+                        <div class="cost-info">
+                            <p class="cost-text"><span class="minecart-cost">20000</span></p>
+                            <img src="images/Gem.png" alt="" class="gem-img">
+                        </div>
+                    </div>
+                    <div class="right-section">Level <span class="minecart-level">0</span></div>
+                    <div class="next-level-info">
+                        <p>+<span class="minecart-increase">50</span> Gems <br /> Per Second</p>
+                    </div>
+                </div>
+                
+            </div>           
+        </div>
+
+        <div class="statistics">
+            <div class="texts"></div>
+        </div>
+    </section>
+
+    <script>
+        let gem = document.querySelector(".gem-cost");
+        let parsedGem = parseFloat(gem.innerHTML);
+
+        let clickerCost = document.querySelector('.clicker-cost');
+        let parsedClickerCost = parseFloat(clickerCost.innerHTML);
+        let clickerLevel = document.querySelector(".clicker-level");
+        let clickerIncrease = document.querySelector(".clicker-increase");
+        let parsedClickerIncreased = parseFloat(clickerIncrease.innerHTML);
+
+        let pickaxeCost = document.querySelector(".pickaxe-cost");
+        let parsedPickaxeCost = parseFloat(pickaxeCost.innerHTML);
+        let pickaxeLevel = document.querySelector(".pickaxe-level");
+        let pickaxeIncrease = document.querySelector(".pickaxe-increase");
+        let parsedPickaxeIncreased = parseFloat(pickaxeIncrease.innerHTML);
+
+        let factoryCost = document.querySelector(".factory-cost");
+        let parsedFactoryCost = parseFloat(factoryCost.innerHTML);
+        let factoryLevel = document.querySelector(".factory-level");
+        let factoryIncrease = document.querySelector(".factory-increase");
+        let parsedFactoryIncreased = parseFloat(factoryIncrease.innerHTML);
+
+        let gemmineCost = document.querySelector(".gemmine-cost");
+        let parsedGemmineCost = parseFloat(gemmineCost.innerHTML);
+        let gemmineLevel = document.querySelector(".gemmine-level");
+        let gemmineIncrease = document.querySelector(".gemmine-increase");
+        let parsedGemmineIncreased = parseFloat(gemmineIncrease.innerHTML);
+
+        let minecartCost = document.querySelector(".minecart-cost");
+        let parsedMinecartCost = parseFloat(minecartCost.innerHTML);
+        let minecartLevel = document.querySelector(".minecart-level");
+        let minecartIncrease = document.querySelector(".minecart-increase");
+        let parsedMinecartIncreased = parseFloat(minecartIncrease.innerHTML);
+
+        let gpcText = document.getElementById("gpc-text");
+        let gpsText = document.getElementById("gps-text");
+
+        let gemImgContainer = document.querySelector('.gem-img-container');
+
+        let gpc = 1; // Gems per click starts at 1
+        let gps = 0; // Gems per second starts at 0
+
+        const upgrades = [
+            {
+                name: 'clicker',
+                costElement: document.querySelector('.clicker-cost'),
+                parsedCost: parseFloat(document.querySelector('.clicker-cost').innerHTML),
+                increaseElement: document.querySelector(".clicker-increase"),
+                parsedIncrease: parseFloat(document.querySelector(".clicker-increase").innerHTML),
+                levelElement: document.querySelector(".clicker-level"),
+                gemMultiplier: 1.025,
+                costMultiplier: 1.12,
+            },
+            {
+                name: 'pickaxe',
+                costElement: document.querySelector('.pickaxe-cost'),
+                parsedCost: parseFloat(document.querySelector('.pickaxe-cost').innerHTML),
+                increaseElement: document.querySelector(".pickaxe-increase"),
+                parsedIncrease: parseFloat(document.querySelector(".pickaxe-increase").innerHTML),
+                levelElement: document.querySelector(".pickaxe-level"),
+                gemMultiplier: 1.025,
+                costMultiplier: 1.12,
+            },
+            {
+                name: 'factory',
+                costElement: document.querySelector('.factory-cost'),
+                parsedCost: parseFloat(document.querySelector('.factory-cost').innerHTML),
+                increaseElement: document.querySelector(".factory-increase"),
+                parsedIncrease: parseFloat(document.querySelector(".factory-increase").innerHTML),
+                levelElement: document.querySelector(".factory-level"),
+                gemMultiplier: 1.025,
+                costMultiplier: 1.12,
+            },
+            {
+                name: 'gemmine',
+                costElement: document.querySelector('.gemmine-cost'),
+                parsedCost: parseFloat(document.querySelector('.gemmine-cost').innerHTML),
+                increaseElement: document.querySelector(".gemmine-increase"),
+                parsedIncrease: parseFloat(document.querySelector(".gemmine-increase").innerHTML),
+                levelElement: document.querySelector(".gemmine-level"),
+                gemMultiplier: 1.025,
+                costMultiplier: 1.12,
+            },
+            {
+                name: 'minecart',
+                costElement: document.querySelector('.minecart-cost'),
+                parsedCost: parseFloat(document.querySelector('.minecart-cost').innerHTML),
+                increaseElement: document.querySelector(".minecart-increase"),
+                parsedIncrease: parseFloat(document.querySelector(".minecart-increase").innerHTML),
+                levelElement: document.querySelector(".minecart-level"),
+                gemMultiplier: 1.025,
+                costMultiplier: 1.12,
+            },
+        ];
+
+        gemImgContainer.addEventListener('click', incrementGem);
+        gemImgContainer.addEventListener('wheel', handleScroll);
+
+        function incrementGem(event) {
+            parsedGem += gpc;
+            gem.innerHTML = Math.round(parsedGem);
+
+            const x = event.offsetX;
+            const y = event.offsetY;
+
+            const div = document.createElement('div');
+            div.innerHTML = `+${Math.round(gpc)}`;
+            div.style.cssText = `color: white; position: absolute; top: ${y}px; left: ${x}px; font-size: 15px; pointer-events: none;`;
+            gemImgContainer.appendChild(div);
+
+            div.classList.add('fade-up');
+
+            setTimeout(() => {
+                div.remove();
+            }, 1000);
+        }
+
+        function handleScroll(event) {
+            const delta = Math.sign(event.deltaY);
+            if (delta > 0) {
+                // Scroll down
+                buyUpgrade('clicker');
+            } else if (delta < 0) {
+                // Scroll up
+                buyUpgrade('gemmine');
+            }
+        }
+
+        function buyUpgrade(upgradeName) {
+            const upgrade = upgrades.find(u => u.name === upgradeName);
+
+            if (parsedGem >= upgrade.parsedCost) {
+                parsedGem -= upgrade.parsedCost;
+                gem.innerHTML = Math.round(parsedGem);
+
+                upgrade.levelElement.innerHTML = parseInt(upgrade.levelElement.innerHTML) + 1;
+
+                upgrade.parsedIncrease = parseFloat((upgrade.parsedIncrease * upgrade.gemMultiplier).toFixed(2));
+                upgrade.increaseElement.innerHTML = upgrade.parsedIncrease;
+
+                if (upgrade.name === 'clicker') {
+                    gpc += upgrade.parsedIncrease;
+                } else {
+                    gps += upgrade.parsedIncrease;
+                }
+
+                upgrade.parsedCost *= upgrade.costMultiplier;
+                upgrade.costElement.innerHTML = Math.round(upgrade.parsedCost);
+
+                updateStatistics();
+            }
+        }
+
+        function updateStatistics() {
+            gpcText.innerHTML = Math.round(gpc);
+            gpsText.innerHTML = Math.round(gps);
+        }
+
+        setInterval(() => {
+            parsedGem += gps / 10;
+            gem.innerHTML = Math.round(parsedGem);
+        }, 100);
+
+        updateStatistics();
+    </script>
+    <style>
+        /* General Styles */
+        body {
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            background-color: #2C2C2C;
+            color: white;
+            user-select: none;
+            font-family: 'Quicksand', sans-serif;
+            position: relative;
+        }
+
+        /* Main Container */
+        .main {
+            display: flex;
+            gap: 200px;
+        }
+
+        /* Text Styles */
+        .pink-text {
+            font-size: 32px;
+            color: rgb(101, 136, 212);
+            font-weight: 700;
+            text-shadow: 2px 2px 3px rgb(90, 90, 90);
+        }
+
+        .cost-text {
+            font-size: 20px;
+        }
+
+        .left {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 50px;
+        }
+
+        /* Gem Image */
+        .gem-image {
+            width: 200px;
+        }
+
+        .gem-image:hover {
+            opacity: 0.9;
+            cursor: pointer;
+        }
+
+        .gem-image:active {
+            opacity: 0.8;
+            transform: scale(1.02);
+        }
+
+        /* Middle Section Styles */
+        .mid-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center the upgrades */
+            gap: 20px; /* Added gap between upgrades */
+        }
+
+        .upgrade {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 330px;
+            height: 60px;
+            border: 4px solid white;
+            padding: 13px 20px;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .upgrade:hover .next-level-info {
+            display: block;
+        }
+
+        .mid-section h4 {
+            margin: 0;
+            margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .upgrade-img {
+            width: 55px;
+        }
+
+        .mid-section p {
+            margin: 0;
+        }
+
+        /* Cost Info Styles */
+        .cost-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .gem-img {
+            width: 26px;
+            height: 25px;
+        }
+
+        /* Next Level Info */
+        .next-level-info {
+            position: absolute;
+            right: -85px;
+            background-color: rgb(90, 89, 90);
+            height: 110px;
+            width: 100px;
+            text-align: center;
+            display: none;
+        }
+
+        /* Gem Image Container */
+        .gem-img-container {
+            position: relative;
+        }
+
+        /* Statistics Section */
+        .texts {
+            display: flex;
+            gap: 100px;
+            justify-content: left;
+            font-weight: bold;
+            font-size: 22px;
+        }
+
+        /* Fade Up Animation */
+        .fade-up {
+            animation: fade-up 1s;
+        }
+
+        @keyframes fade-up {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            20% {
+                transform: translateY(-5px);
+                opacity: 0.9;
+            }
+            40% {
+                transform: translateY(-13px);
+                opacity: 0.75;
+            }
+            60% {
+                transform: translateY(-25px);
+                opacity: 0.55;
+            }
+            80% {
+                transform: translateY(-42px);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-65px);
+                opacity: 0;
+}
+}
+</style>
+
+</body>
+</html>
